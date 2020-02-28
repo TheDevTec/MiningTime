@@ -1,0 +1,62 @@
+Prefix: "&2Mining&7Time &2>"
+FormatOfHelp: "%prefix% &2 %command% &7 %space% &e %help%"
+Messages:
+  MainMessages:
+    NoPermissions: "&cYou do not have permissons!!"
+    ConsoleError: "&cThis is only ingame command!"
+    NoPermissions: "&4You do not have permissions"
+    StatsResetet: "%prefix% &aYou have succesfully resetet player %target% statistics!"
+  Tournaments:
+    PrepTime: "%prefix% &aRemaining time to prepare: &2%preptime%"
+    PrepTimeEnded: "%prefix% &aPreparation time is over!! Start mining.."
+    Running: "%prefix% &aMining Tournament is running, type &2%type%"
+    EndingIn: "%prefix% &aTournament type &2%type% &aending in &2%remainingtime%"
+    Stopped: "%prefix% &cTournament has beed stopped!"
+    Info: "%prefix% &aTournament type: &2%type%"
+    AddedPoint: "%prefix% &aAdded new point! Now you have &2%points%"
+
+Help:
+  HelpFormat: "&7%prefix%&2%command%&7%space%&e%help%"
+  StatsByConsole: "&7Please use this command.."
+  TournamentStart: "&7You can start new tournament.."
+  TournamentStop: "&7You can stop already runing tournament.."
+  AdminStats: "&7With this command you can reset player's statisticks.."
+  Stats: "&7You can see player's statistics.."
+  PlayerNotExist: "&4Player %player% don't exist! "
+  Info: "&7This command gives you info about plugin.."
+
+    
+Stats:
+- "&a------< &2%playername% &a>------"
+- "&7Player Tournaments: &a%playedtournaments%"
+- "&7TOP 1: &a%top1%"
+- "&7TOP 2: &a%top2%"
+- "&7TOP 3: &a%top3%"
+- " "
+- "&7Ore mined: &a%oremined%"
+- "&7Diamonds mined: &a%diamondsmined%"
+- "&7Emeralds mined: &a%emeraldsmined%"
+- ""
+- "&a------------------------------------"
+
+TrournamentStarted:
+- "&a--------< &2Mining&7Time &a>--------"
+- " "
+- "&7&lStarted new tournament!!"
+- "&7Tournament Type: &2%type%"
+- "&7Time: &2%time%"
+- "&7Preparing Time: &2%preptime%"
+- "&a------------------------------------"
+
+TrournamentEnded:
+- "&a--------< &2Mining&7Time &a>--------"
+- " "
+- "&7Tournament has ended"
+- "&7Tournament type: &2%type%"
+- " "
+- "&7Winner of tournament is: &2%pos1% &7mined ores &2%mined1%"
+- "&7On second position is: &2%pos2% &7mined ores &2%mined2%"
+- "&7On third position is: &2%pos3% &7mined ores &2%mined3%"
+- " "
+- "&a------------------------------------"
+

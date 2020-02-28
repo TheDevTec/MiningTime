@@ -1,0 +1,32 @@
+name: MiningTime
+main: MiningTime.main
+author: Houska02
+version: 0.7
+api-version: 1.13
+depend: [TheAPI]
+commands:
+    Miningtime:
+        description: Main command for my plugin
+        usage: /<command> <tournament>
+        aliases: [miningtime, mt]
+permissions:
+    MiningTime.*:
+        default: op
+        description: Gives access to all commands
+        children:
+            MiningTime.Admin: true
+            MiningTime.Player: true
+            MiningTime.Stats: true
+            MiningTime.TournamentAdmin: true
+    MiningTime.Admin:
+        default: op
+        description: Give acces to all admin commands
+        children:
+            MiningTime.Player: true
+            MiningTime.Stats: true
+            MiningTime.TournamentAdmin: true
+    MiningTime.Player:
+        default: true
+        description: Give acces to all player commands
+        children:
+            MiningTime.Stats: true
