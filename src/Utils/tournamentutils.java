@@ -26,7 +26,6 @@ public class tournamentutils {
 		DiamondHunt,
 		EmeraldHunt,
 		MostMinedOres,
-		//JustMineEverything,
 		Random;
 	}
 	
@@ -39,9 +38,8 @@ public class tournamentutils {
 			legend.add("DiamondHunt");
 			legend.add("EmeraldHunt");
 			legend.add("MostMinedOres");
-			//legend.add("JustMineEverything");
 			int target = 0;
-			for (int counter =1; counter<=4;counter++) {
+			for (int counter =1; counter<=3;counter++) {
 			    Random object = new Random();
 			    target = 0;
 			if(legend.size() > target) {
@@ -58,7 +56,6 @@ public class tournamentutils {
         else {
             prep = 0;
         }
-		prep = 60;
 		if(count == 0) {
 			count = 600;
 		}
