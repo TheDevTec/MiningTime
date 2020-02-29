@@ -68,8 +68,8 @@ public class miningtimecmd implements CommandExecutor, TabCompleter {
 						if(s instanceof Player == true) {
 							Player p =(Player)s;
 							 if(m.getConfig().getString("Players."+p.getName()) != null) {
-								 utils.msg("&e------------- &bMiningTime&e -------------",s);
-								 utils.msg(" ", s);
+								 //utils.msg("&e------------- &bMiningTime&e -------------",s);
+								 //utils.msg(" ", s);
 								 List<String> stats = m.getConfig().getStringList("Stats");
 								 for(String st: stats) {
 									 utils.msg(st
@@ -93,8 +93,8 @@ public class miningtimecmd implements CommandExecutor, TabCompleter {
 							Player t = Bukkit.getPlayer(args[1]);
 							if(t!=null) {
 								if(m.getConfig().getString("Players."+args[1]) != null) {
-								utils.msg("&e------------- &bMiningTime&e -------------",s);
-								 utils.msg(" ", s);
+								//utils.msg("&e------------- &bMiningTime&e -------------",s);
+								// utils.msg(" ", s);
 								 List<String> stats = m.getConfig().getStringList("Stats");
 								 for(String st: stats) {
 									 utils.msg(st
@@ -112,8 +112,8 @@ public class miningtimecmd implements CommandExecutor, TabCompleter {
 							 return true;}
 							}
 							 if(m.getConfig().getString("Players."+args[1]) != null) {
-								 utils.msg("&e------------- &bMiningTime&e -------------",s);
-								 utils.msg(" ", s);
+								// utils.msg("&e------------- &bMiningTime&e -------------",s);
+								 //utils.msg(" ", s);
 								 List<String> stats = m.getConfig().getStringList("Stats");
 								 for(String st: stats) {
 									 utils.msg(st

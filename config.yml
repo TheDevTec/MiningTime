@@ -37,8 +37,9 @@ Help:
 
     
 Stats:
-- "&a------< &2%playername% &a>------"
-- "&7Player Tournaments: &a%playedtournaments%"
+- "&a-------------< &2Mining&7Time &a>-------------"
+- "&a---------< &2%playername% &a>---------"
+- "&7Played Tournaments: &a%playedtournaments%"
 - "&7TOP 1: &a%top1%"
 - "&7TOP 2: &a%top2%"
 - "&7TOP 3: &a%top3%"
