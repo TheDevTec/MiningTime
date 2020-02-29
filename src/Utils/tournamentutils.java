@@ -51,6 +51,13 @@ public class tournamentutils {
 			type=Type.valueOf(legend.get(target));
 		}
 		count = length;
+		if (main.instance.getConfig().getBoolean("Settings.PrepTime.Enabled")&&
+				main.instance.getConfig().getString("Settings.PrepTime.Time")!=null) {
+            prep = main.instance.getConfig().getInt("Settings.PrepTime.Time");
+        }
+        else {
+            prep = 0;
+        }
 		prep = 60;
 		if(count == 0) {
 			count = 600;

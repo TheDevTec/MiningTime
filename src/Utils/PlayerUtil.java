@@ -3,6 +3,7 @@ package Utils;
 import org.bukkit.entity.Player;
 
 import MiningTime.main;
+import me.Straiker123.TheAPI;
 
 
 public class PlayerUtil {
@@ -85,5 +86,50 @@ public class PlayerUtil {
 			main.instance.saveConfig();
 		}
 	}
-	
+	public static void reward(Player p,String pos) {
+        if (pos.equalsIgnoreCase("Top1")) {
+            final double money = convertMoney(main.instance.getConfig().getString("Settings.Reward.Top1.Money"));
+            TheAPI.getEconomyAPI().depositPlayer(p, money);
+            utils.msg(main.s("Messages.Tournaments.Reward")
+            		.replace("%prefix%", main.s("Prefix")).replace("%reward%", new StringBuilder().append(money).toString()), p);
+            return;
+        }
+        if (pos.equalsIgnoreCase("Top2")) {
+            final double money = convertMoney(main.instance.getConfig().getString("Settings.Reward.Top2.Money"));
+            TheAPI.getEconomyAPI().depositPlayer(p, money);
+            utils.msg(main.s("Messages.Tournaments.Reward")
+            		.replace("%prefix%", main.s("Prefix")).replace("%reward%", new StringBuilder().append(money).toString()), p);
+            return;
+        }
+        if (pos.equalsIgnoreCase("Top3")) {
+            final double money = convertMoney(main.instance.getConfig().getString("Settings.Reward.Top3.Money"));
+            TheAPI.getEconomyAPI().depositPlayer(p, money);
+            utils.msg(main.s("Messages.Tournaments.Reward")
+            		.replace("%prefix%", main.s("Prefix")).replace("%reward%", new StringBuilder().append(money).toString()), p);
+        }
+    }
+	 public static double convertMoney(String s) {
+	        double a = TheAPI.getNumbersAPI(s).getDouble();
+	        final double mille = a * 1000.0;
+	        final double million = mille * 1000.0;
+	        final double billion = million * 1000.0;
+	        final double trillion = billion * 1000.0;
+	        final double quadrillion = trillion * 1000.0;
+	        if (s.endsWith("k")) {
+	            a *= 1000.0;
+	        }
+	        if (s.endsWith("m")) {
+	            a = million;
+	        }
+	        if (s.endsWith("b")) {
+	            a = billion;
+	        }
+	        if (s.endsWith("t")) {
+	            a = trillion;
+	        }
+	        if (s.endsWith("q")) {
+	            a = quadrillion;
+	        }
+	        return a;
+	    }
 }

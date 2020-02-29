@@ -1,8 +1,18 @@
 Prefix: "&2Mining&7Time &2>"
 FormatOfHelp: "%prefix% &2 %command% &7 %space% &e %help%"
+Settings:
+  PrepTime:
+    Time: 10
+    Enabled: true
+  Reward:
+    Top2:
+      Money: 1000
+    Top3:
+      Money: 700
+    Top1:
+      Money: 5000
 Messages:
   MainMessages:
-    NoPermissions: "&cYou do not have permissons!!"
     ConsoleError: "&cThis is only ingame command!"
     NoPermissions: "&4You do not have permissions"
     StatsResetet: "%prefix% &aYou have succesfully resetet player %target% statistics!"
@@ -14,7 +24,7 @@ Messages:
     Stopped: "%prefix% &cTournament has beed stopped!"
     Info: "%prefix% &aTournament type: &2%type%"
     AddedPoint: "%prefix% &aAdded new point! Now you have &2%points%"
-
+    Reward: "%prefix% &aYou have received a reward %reward% "
 Help:
   HelpFormat: "&7%prefix%&2%command%&7%space%&e%help%"
   StatsByConsole: "&7Please use this command.."
