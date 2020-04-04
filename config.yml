@@ -5,12 +5,9 @@ Settings:
     Time: 10
     Enabled: true
   Reward:
-    Top2:
-      Money: 1000
-    Top3:
-      Money: 700
-    Top1:
-      Money: 5000
+    Top2: "eco give @p 2500"
+    Top3: "eco give @p 1400"
+    Top1: "eco give @p 5000"
 Messages:
   MainMessages:
     ConsoleError: "&cThis is only ingame command!"
@@ -23,8 +20,9 @@ Messages:
     EndingIn: "%prefix% &aTournament type &2%type% &aending in &2%remainingtime%"
     Stopped: "%prefix% &cTournament has beed stopped!"
     Info: "%prefix% &aTournament type: &2%type%"
+    NoInfo: "%prefix% &cNo tournament is running at the moment..."
     AddedPoint: "%prefix% &aAdded new point! Now you have &2%points%"
-    Reward: "%prefix% &aYou have received a reward %reward% "
+    Reward: "%prefix% &aYou have received a reward..."
 Help:
   HelpFormat: "&7%prefix%&2%command%&7%space%&e%help%"
   StatsByConsole: "&7Please use this command.."

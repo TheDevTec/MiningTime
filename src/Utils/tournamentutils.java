@@ -65,8 +65,8 @@ public class tournamentutils {
 		for(String st: TourStats) {
 		utils.BroadcastMsg(st
 				.replace("%type%", main.s("Maindata.Tournament.Type"))
-				.replace("%time%", TheAPI.getTimeConventorAPI().setTimeToString(count))
-				.replace("%preptime%", TheAPI.getTimeConventorAPI().setTimeToString(prep)));
+				.replace("%time%", TheAPI.getStringUtils().setTimeToString(count))
+				.replace("%preptime%", TheAPI.getStringUtils().setTimeToString(prep)));
 		 }
 
 		run=Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(main.instance, new Runnable(){
@@ -76,10 +76,13 @@ public class tournamentutils {
 					if(prep != 0) {
 						if(prep==40) utils.BroadcastMsg(main.s("Messages.Tournaments.PrepTime")
 								.replace("%prefix%", main.s("Prefix"))
-								.replace("%preptime%", TheAPI.getTimeConventorAPI().setTimeToString(prep)));
-						if(prep==20) utils.BroadcastMsg(main.s("Messages.Tournaments.PrepTime").replace("%prefix%", main.s("Prefix")).replace("%preptime%", TheAPI.getTimeConventorAPI().setTimeToString(prep)));
-						if(prep==15) utils.BroadcastMsg(main.s("Messages.Tournaments.PrepTime").replace("%prefix%", main.s("Prefix")).replace("%preptime%", TheAPI.getTimeConventorAPI().setTimeToString(prep)));
-						if(prep==5) utils.BroadcastMsg(main.s("Messages.Tournaments.PrepTime").replace("%prefix%", main.s("Prefix")).replace("%preptime%", TheAPI.getTimeConventorAPI().setTimeToString(prep)));
+								.replace("%preptime%", TheAPI.getStringUtils().setTimeToString(prep)));
+						if(prep==20) utils.BroadcastMsg(main.s("Messages.Tournaments.PrepTime").replace("%prefix%", main.s("Prefix"))
+								.replace("%preptime%", TheAPI.getStringUtils().setTimeToString(prep)));
+						if(prep==15) utils.BroadcastMsg(main.s("Messages.Tournaments.PrepTime").replace("%prefix%", main.s("Prefix"))
+								.replace("%preptime%", TheAPI.getStringUtils().setTimeToString(prep)));
+						if(prep==5) utils.BroadcastMsg(main.s("Messages.Tournaments.PrepTime").replace("%prefix%", main.s("Prefix"))
+								.replace("%preptime%", TheAPI.getStringUtils().setTimeToString(prep)));
 		                --prep;
 		                return;
 		                }
@@ -100,57 +103,50 @@ public class tournamentutils {
 	                	utils.BroadcastMsg(main.s("Messages.Tournaments.EndingIn")
 	                			.replace("%prefix%", main.s("Prefix"))
 	                			.replace("%type%", main.s("Maindata.Tournament.Type"))
-	                			.replace("%remainingtime%", TheAPI.getTimeConventorAPI().setTimeToString(count)));
+	                			.replace("%remainingtime%", TheAPI.getStringUtils().setTimeToString(count)));
 	                }
 	                if(count == 0) {
-	                	
-	                	 List<String> TourEnd = main.instance.getConfig().getStringList("TrournamentEnded");
-                		 for(String tend: TourEnd) {
+	                	--count;
+               		 Bukkit.getScheduler().cancelTask(run);
+	                	 
                 			 HashMap<String, Double> mined = new HashMap<String, Double>();
-                			 
-                			 for(Player online : Bukkit.getOnlinePlayers()){
-                				mined.put(online.getDisplayName(), main.instance.getConfig().getDouble("Players.Mined."+online.getName()));
-                			}
+                			 for(Player online : Bukkit.getOnlinePlayers())
+                				mined.put(online.getName(), main.instance.getConfig().getDouble("Players.Mined."+online.getName()));
  	                		RankingAPI rank = TheAPI.getRankingAPI(mined);
- 	                		if(Bukkit.getOnlinePlayers().size()==1) {
- 	                		String top1 = rank.getObject(1).toString();
- 	                		int top1mined = (int) rank.getValue(top1);
- 	                		TheAPI.broadcastMessage(tend
-	                				 .replace("%type%", main.s("Maindata.Tournament.Type"))
-	                				.replace("%pos1%", top1)
-	                				.replace("%mined1%", ""+top1mined)
-	                				.replace("%pos2%", "-").replace("%mined2%", "-")
-	                				.replace("%pos3%", "-").replace("%mined3%", "-"));
- 	                		}
- 	                		if(Bukkit.getOnlinePlayers().size()>1&&Bukkit.getOnlinePlayers().size()<3) {
- 	                			String top1 = rank.getObject(1).toString();
- 	                			int top1mined = (int) rank.getValue(top1);
- 	                			String top2 = rank.getObject(2).toString();
- 	                			int top2mined = (int)rank.getValue(top2);
- 	                				TheAPI.broadcastMessage(tend
- 	  	                				 .replace("%type%", main.s("Maindata.Tournament.Type"))
- 	  	                				.replace("%pos1%", top1).replace("%mined1%", ""+top1mined)
- 	  	                				.replace("%pos2%", top2).replace("%mined2%", ""+top2mined)
- 	  	                				.replace("%pos3%", "-").replace("%mined3%", "-"));
- 	                				}
- 	                		if(Bukkit.getOnlinePlayers().size()>2) {
- 	                			String top1 = rank.getObject(1).toString();
- 	                			int top1mined = (int)rank.getValue(top1);
- 	                			String top2 = rank.getObject(2).toString();
- 	                			int top2mined = (int)rank.getValue(top2);
-	                			String top3 = rank.getObject(3).toString();
-	                			int top3mined = (int)rank.getValue(top3);
-	                			TheAPI.broadcastMessage(tend
-	    	                			.replace("%type%", main.s("Maindata.Tournament.Type"))
-	    	                			.replace("%pos1%", top1).replace("%mined1%", ""+top1mined)
-	    	                			.replace("%pos2%", top2).replace("%mined1%", ""+top2mined)
-	    	                			.replace("%pos3%", top3).replace("%mined1%", ""+top3mined));
- 	                		}
- 
+ 	                		String top1="-",top2="-",top3="-";
+ 	                		if(rank.size()>=1)
+ 	                		top1= rank.getObject(1).toString();
+ 	                		if(rank.size()>=2)
+ 	                		top2= rank.getObject(2).toString();
+ 	                		if(rank.size()>=3)
+ 	                		top3= rank.getObject(3).toString();
+ 	                		int top1mined=0,top2mined=0,top3mined=0;
+ 	                		if(rank.size()>=1)
+ 	                		top1mined= (int) rank.getValue(top1);
+ 	                		if(rank.size()>=2)
+ 	                		top2mined= (int) rank.getValue(top2);
+ 	                		if(rank.size()>=3)
+ 	                		top3mined= (int) rank.getValue(top3);
+ 	                		if(!top1.equals("-"))
+            				PlayerUtil.reward(top1, "Top1");
+ 	                		if(!top2.equals("-"))
+            				PlayerUtil.reward(top2, "Top2");
+ 	                		if(!top3.equals("-"))
+            				PlayerUtil.reward(top3, "Top3");
+ 	                		if(Bukkit.getPlayer(top1)!=null)top1=Bukkit.getPlayer(top1).getDisplayName();
+ 	                		if(Bukkit.getPlayer(top2)!=null)top2=Bukkit.getPlayer(top2).getDisplayName();
+ 	                		if(Bukkit.getPlayer(top3)!=null)top3=Bukkit.getPlayer(top3).getDisplayName();
  	                		
+ 	                		List<String> TourEnd = main.instance.getConfig().getStringList("TrournamentEnded");
+ 	                		 for(String tend: TourEnd) {
+ 	                		TheAPI.broadcastMessage(tend
+    	                			.replace("%type%", main.s("Maindata.Tournament.Type"))
+    	                			.replace("%pos1%", top1).replace("%mined1%", ""+top1mined)
+    	                			.replace("%pos2%", top2).replace("%mined2%", ""+top2mined)
+    	                			.replace("%pos3%", top3).replace("%mined3%", ""+top3mined));
+ 	                	
                 		 }
                 		 stopTournament();
-                		 Bukkit.getScheduler().cancelTask(run);
                 		 
 	                }
 			}
@@ -166,9 +162,13 @@ public class tournamentutils {
 	
 	}
 	public static void Info(CommandSender s) {
+		if(main.instance.getConfig().getString("Maindata.Tournament.Type")!=null) {
 		utils.msg(main.s("Messages.Tournaments.Info")
 				.replace("%type%", main.getInstance.getConfig().getString("Maindata.Tournament.Type"))
 				.replace("%prefix%", main.s("Prefix")), s);
+		return;
+		}
+		utils.msg(main.s("Messages.Tournaments.NoInfo").replace("%prefix%", main.s("Prefix")), s);
 		return;
 		
 	}

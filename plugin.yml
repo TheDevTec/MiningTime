@@ -18,6 +18,7 @@ permissions:
             MiningTime.Player: true
             MiningTime.Stats: true
             MiningTime.TournamentAdmin: true
+            MiningTime.ResetStats: true
     MiningTime.Admin:
         default: op
         description: Give acces to all admin commands
@@ -25,6 +26,7 @@ permissions:
             MiningTime.Player: true
             MiningTime.Stats: true
             MiningTime.TournamentAdmin: true
+            MiningTime.ResetStats: true
     MiningTime.Player:
         default: true
         description: Give acces to all player commands

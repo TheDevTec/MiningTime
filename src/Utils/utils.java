@@ -11,15 +11,6 @@ import MiningTime.main;
 
 public class utils {
 	main m = main.instance;
-	
-	public static boolean hasPerm(CommandSender s, String permission) {
-		 if(s.hasPermission(permission)) {return true;}
-			s.sendMessage(colorize(main.s("NotPermissionsMessage")
-					.replace("%player%", s.getName())
-					.replace("%playername%", s.getName())
-					.replace("%permission%", permission)));
-			return false;
-	 }
 	public static String colorize(String string) {
 		if(string == null)return null;
 		return ChatColor.translateAlternateColorCodes('&', string);
@@ -40,8 +31,4 @@ public class utils {
 	 public static void warn(String s) {
 			Bukkit.getLogger().log(Level.WARNING,"["+main.getInstance.getName()+"] "+s);
 		}
-	public static String s(String s) {
-		return main.instance.getConfig().getString(s);
-	}
-
 }

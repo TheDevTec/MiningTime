@@ -1,9 +1,12 @@
 package Utils;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import MiningTime.main;
 import me.Straiker123.TheAPI;
+import me.Straiker123.TheAPI.SudoType;
 
 
 public class PlayerUtil {
@@ -12,7 +15,6 @@ public class PlayerUtil {
 	public static String DataExist(Player p) {
 		return m.getConfig().getString("Players."+p.getName());
 	}
-
 	public static void CreateNewData(Player p) {
 		if(p==null) return;
 		m.getConfig().set("Players."+p.getName()+".OreMined", 0);
@@ -36,35 +38,25 @@ public class PlayerUtil {
 		m.saveConfig();
 	}
 	public static void addPointToConfig(Player p, String object) {
-		int dia = main.instance.getConfig().getInt("Players."+p.getName()+".DiamondsMined");
-		int eme = main.instance.getConfig().getInt("Players."+p.getName()+".EmeraldsMined");
 		int all = main.instance.getConfig().getInt("Players."+p.getName()+".OreMined");
-		int ptours = main.instance.getConfig().getInt("Players."+p.getName()+".PlayedTournaments");
-		int top1 = main.instance.getConfig().getInt("Players."+p.getName()+".Top1");
-		int top2 = main.instance.getConfig().getInt("Players."+p.getName()+".Top2");
-		int top3 = main.instance.getConfig().getInt("Players."+p.getName()+".Top3");
 		if(object.equalsIgnoreCase("PTOURS")) {
+			int ptours = main.instance.getConfig().getInt("Players."+p.getName()+".PlayedTournaments");
 			main.instance.getConfig().set("Players."+p.getName()+".PlayedTournaments", ptours+1);
 			main.instance.saveConfig();
 		}
-		if(object.equalsIgnoreCase("TOP1")) {
-			main.instance.getConfig().set("Players."+p.getName()+".Top1", top1+1);
-			main.instance.saveConfig();
-		}
-		if(object.equalsIgnoreCase("TOP2")) {
-			main.instance.getConfig().set("Players."+p.getName()+".Top2", top2+1);
-			main.instance.saveConfig();
-		}
-		if(object.equalsIgnoreCase("TOP3")) {
-			main.instance.getConfig().set("Players."+p.getName()+".Top3", top3+1);
+		if(object.startsWith("Top")) {
+			int top = main.instance.getConfig().getInt("Players."+p+"."+object);
+			main.instance.getConfig().set("Players."+p.getName()+"."+object, top+1);
 			main.instance.saveConfig();
 		}
 		if(object.equalsIgnoreCase("DIAMOND_ORE")) {
+			int dia = main.instance.getConfig().getInt("Players."+p.getName()+".DiamondsMined");
 			main.instance.getConfig().set("Players."+p.getName()+".DiamondsMined", dia+1);
 			main.instance.getConfig().set("Players."+p.getName()+".OreMined", all+1);
 			main.instance.saveConfig();
 		}
-		if(object == "EMERALD_ORE") {
+		if(object.equalsIgnoreCase("EMERALD_ORE")) {
+			int eme = main.instance.getConfig().getInt("Players."+p.getName()+".EmeraldsMined");
 			main.instance.getConfig().set("Players."+p.getName()+".EmeraldsMined", eme+1);
 			main.instance.getConfig().set("Players."+p.getName()+".OreMined", all+1);
 			main.instance.saveConfig();
@@ -86,50 +78,53 @@ public class PlayerUtil {
 			main.instance.saveConfig();
 		}
 	}
-	public static void reward(Player p,String pos) {
-        if (pos.equalsIgnoreCase("Top1")) {
-            final double money = convertMoney(main.instance.getConfig().getString("Settings.Reward.Top1.Money"));
-            TheAPI.getEconomyAPI().depositPlayer(p, money);
+	public static void addPointToConfig(String p, String object) {
+		int all = main.instance.getConfig().getInt("Players."+p+".OreMined");
+		if(object.equalsIgnoreCase("PTOURS")) {
+			int ptours = main.instance.getConfig().getInt("Players."+p+".PlayedTournaments");
+			main.instance.getConfig().set("Players."+p+".PlayedTournaments", ptours+1);
+			main.instance.saveConfig();
+		}
+		if(object.startsWith("Top")) {
+			int top = main.instance.getConfig().getInt("Players."+p+"."+object);
+			main.instance.getConfig().set("Players."+p+"."+object, top+1);
+			main.instance.saveConfig();
+		}
+		if(object.equalsIgnoreCase("DIAMOND_ORE")) {
+			int dia = main.instance.getConfig().getInt("Players."+p+".DiamondsMined");
+			main.instance.getConfig().set("Players."+p+".DiamondsMined", dia+1);
+			main.instance.getConfig().set("Players."+p+".OreMined", all+1);
+			main.instance.saveConfig();
+		}
+		if(object.equalsIgnoreCase("EMERALD_ORE")) {
+			int eme = main.instance.getConfig().getInt("Players."+p+".EmeraldsMined");
+			main.instance.getConfig().set("Players."+p+".EmeraldsMined", eme+1);
+			main.instance.getConfig().set("Players."+p+".OreMined", all+1);
+			main.instance.saveConfig();
+		}
+		if(object.equalsIgnoreCase("IRON_ORE")) {
+			main.instance.getConfig().set("Players."+p+".OreMined", all+1);
+			main.instance.saveConfig();
+		}
+		if(object.equalsIgnoreCase("GOLD_ORE")) {
+			main.instance.getConfig().set("Players."+p+".OreMined", all+1);
+			main.instance.saveConfig();
+		}
+		if(object.equalsIgnoreCase("LAPIS_ORE")) {
+			main.instance.getConfig().set("Players."+p+".OreMined", all+1);
+			main.instance.saveConfig();
+		}
+		if(object.equalsIgnoreCase("REDSTONE_ORE")) {
+			main.instance.getConfig().set("Players."+p+".OreMined", all+1);
+			main.instance.saveConfig();
+		}
+	}
+	public static void reward(String p,String pos) {
+            String money = main.instance.getConfig().getString("Settings.Reward."+pos);
+            TheAPI.sudoConsole(SudoType.COMMAND, money.replace("@p",p));
+            addPointToConfig(p, pos);
             utils.msg(main.s("Messages.Tournaments.Reward")
-            		.replace("%prefix%", main.s("Prefix")).replace("%reward%", new StringBuilder().append(money).toString()), p);
-            return;
-        }
-        if (pos.equalsIgnoreCase("Top2")) {
-            final double money = convertMoney(main.instance.getConfig().getString("Settings.Reward.Top2.Money"));
-            TheAPI.getEconomyAPI().depositPlayer(p, money);
-            utils.msg(main.s("Messages.Tournaments.Reward")
-            		.replace("%prefix%", main.s("Prefix")).replace("%reward%", new StringBuilder().append(money).toString()), p);
-            return;
-        }
-        if (pos.equalsIgnoreCase("Top3")) {
-            final double money = convertMoney(main.instance.getConfig().getString("Settings.Reward.Top3.Money"));
-            TheAPI.getEconomyAPI().depositPlayer(p, money);
-            utils.msg(main.s("Messages.Tournaments.Reward")
-            		.replace("%prefix%", main.s("Prefix")).replace("%reward%", new StringBuilder().append(money).toString()), p);
-        }
+            		.replace("%prefix%", main.s("Prefix")), Bukkit.getPlayer(p));
+            Bukkit.getPlayer(p).playSound(Bukkit.getPlayer(p).getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 5, 1);
     }
-	 public static double convertMoney(String s) {
-	        double a = TheAPI.getNumbersAPI(s).getDouble();
-	        final double mille = a * 1000.0;
-	        final double million = mille * 1000.0;
-	        final double billion = million * 1000.0;
-	        final double trillion = billion * 1000.0;
-	        final double quadrillion = trillion * 1000.0;
-	        if (s.endsWith("k")) {
-	            a *= 1000.0;
-	        }
-	        if (s.endsWith("m")) {
-	            a = million;
-	        }
-	        if (s.endsWith("b")) {
-	            a = billion;
-	        }
-	        if (s.endsWith("t")) {
-	            a = trillion;
-	        }
-	        if (s.endsWith("q")) {
-	            a = quadrillion;
-	        }
-	        return a;
-	    }
 }
