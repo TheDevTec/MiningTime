@@ -1,7 +1,7 @@
 name: MiningTime
 main: MiningTime.main
 author: Houska02
-version: 0.7
+version: 1.0
 api-version: 1.13
 depend: [TheAPI]
 commands:
